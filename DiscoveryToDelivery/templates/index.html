@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DiscoveryToDelivery | Enterprise AI Creator Marketplace</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans, Space Grotesk, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Custom Design System Stylesheet -->
+  <link rel="stylesheet" href="/static/styles.css">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#090A0F] text-slate-100 min-h-screen selection:bg-indigo-500/30 selection:text-white relative font-sans antialiased">
+  
+  <!-- SUBTLE STUDIO AMBIENT LIGHTING -->
+  <div aria-hidden class="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#090A0F]">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(99,102,241,0.12),transparent_70%)]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000,transparent_100%)]"></div>
+  </div>
+
+  <div class="relative z-10 flex flex-col min-h-screen">
+    
+    <!-- ============================================================== -->
+    <!-- STUDIO NAVIGATION HEADER                                       -->
+    <!-- ============================================================== -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#090A0F]/85 border-b border-white/[0.08] px-4 lg:px-8 py-3.5 transition-all">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        
+        <!-- BRAND & LOGO -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('delivery')">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[#090A0F] shadow-sm font-heading font-black text-sm">
+            D2D
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-heading font-bold text-base tracking-tight text-white">DiscoveryToDelivery</span>
+              <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-white/[0.06] text-slate-300 border border-white/10">Studio</span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-mono hidden sm:flex items-center gap-1.5">
+              <span>AI Creator Marketplace & Production Pipeline</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- SEGMENTED NAVIGATION TABS -->
+        <nav class="flex items-center bg-white/[0.04] p-1 rounded-full border border-white/[0.08] shadow-inner text-xs font-semibold">
+          <button onclick="switchTab('delivery')" id="nav-delivery" class="nav-tab active flex items-center gap-2 px-4 py-2 rounded-full transition-all text-white bg-white/10 border border-white/20 shadow-sm">
+            <i data-lucide="layers" class="w-4 h-4 text-indigo-400"></i>
+            <span class="font-heading">Pipeline & Engagements</span>
+            <span id="badge-active-eng" class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+          </button>
+          
+          <button onclick="switchTab('creators')" id="nav-creators" class="nav-tab flex items-center gap-2 px-4 py-2 rounded-full transition-all text-slate-400 hover:text-white hover:bg-white/[0.05]">
+            <i data-lucide="users" class="w-4 h-4"></i>
+            <span class="font-heading">AI Creators</span>
+          </button>
+          
+          <button onclick="switchTab('briefs')" id="nav-briefs" class="nav-tab flex items-center gap-2 px-4 py-2 rounded-full transition-all text-slate-400 hover:text-white hover:bg-white/[0.05]">
+            <i data-lucide="file-text" class="w-4 h-4"></i>
+            <span class="font-heading">Creative Briefs</span>
+          </button>
+        </nav>
+
+        <!-- CTA ACTIONS -->
+        <div class="flex items-center gap-2.5">
+          <button onclick="openAiBriefModal()" class="btn-secondary flex items-center gap-1.5 text-xs font-heading">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i>
+            <span>Brief Assistant</span>
+          </button>
+
+          <button onclick="openNewEngagementModal()" class="btn-primary text-xs font-heading">
+            <i data-lucide="plus" class="w-3.5 h-3.5 mr-1.5"></i>
+            <span>Commission Project</span>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- ============================================================== -->
+    <!-- MAIN APPLICATION CONTAINER                                     -->
+    <!-- ============================================================== -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-8 space-y-8">
+      
+      <!-- HERO BANNER & REAL-TIME TELEMETRY -->
+      <section class="studio-card p-6 lg:p-8 relative overflow-hidden">
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div class="space-y-3 max-w-2xl">
+            <div class="eyebrow-pill">
+              <span class="eyebrow-dot"></span>
+              <span class="uppercase">Commercial Production Platform</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-heading font-extrabold text-white tracking-tight leading-tight">
+              Where Leading Brands Commission <span class="text-white">Generative AI Creators</span>
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans">
+              The production operating system connecting brands with verified generative filmmakers, diffusion stylists, and 3D animators. Full lifecycle support from talent discovery and prompt alignment to milestone-funded escrow and verifiable commercial rights assignment.
+            </p>
+          </div>
+
+          <!-- TELEMETRY METRICS GRID -->
+          <div class="grid grid-cols-2 gap-3 shrink-0">
+            <div class="glass-strong p-4 rounded-xl border border-white/[0.08] space-y-1">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">Total Escrow Processed</span>
+              <div class="flex items-baseline gap-1.5">
+                <span class="text-xl font-heading font-extrabold text-white font-mono">$128,500</span>
+                <span class="text-[10px] text-emerald-400 font-mono font-medium">Escrow Protected</span>
+              </div>
+            </div>
+
+            <div class="glass-strong p-4 rounded-xl border border-white/[0.08] space-y-1">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">Workflow Reproducibility</span>
+              <div class="flex items-baseline gap-1.5">
+                <span class="text-xl font-heading font-extrabold text-white font-mono">99.8%</span>
+                <span class="text-[10px] text-slate-400 font-mono">ComfyUI Graphs</span>
+              </div>
+            </div>
+
+            <div class="glass-strong p-4 rounded-xl border border-white/[0.08] space-y-1">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">Vetted Creators</span>
+              <div class="flex items-baseline gap-1.5">
+                <span id="stat-creators" class="text-xl font-heading font-extrabold text-white font-mono">30</span>
+                <span class="text-[10px] text-indigo-400 font-mono">Verified Rigs</span>
+              </div>
+            </div>
+
+            <div class="glass-strong p-4 rounded-xl border border-white/[0.08] space-y-1">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">Delivery & Trust Score</span>
+              <div class="flex items-baseline gap-1.5">
+                <span id="stat-trust" class="text-xl font-heading font-extrabold text-white font-mono">98.4%</span>
+                <span class="text-[10px] text-amber-400 font-mono">Audited</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB 1: DISCOVERY TO DELIVERY LIFECYCLE PIPELINE                -->
+      <!-- ============================================================== -->
+      <section id="tab-delivery" class="space-y-6">
+        
+        <!-- LIFECYCLE STAGE STEPPER BAR -->
+        <div class="studio-card p-6 sm:p-7 space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="eyebrow-pill text-[10px] px-2.5 py-0.5">DISCOVERY TO DELIVERY</span>
+                <span class="text-slate-600 font-mono">·</span>
+                <span class="text-xs text-slate-400 font-mono">End-to-End Production Pipeline</span>
+              </div>
+              <h2 class="text-xl font-heading font-bold text-white mt-1">Active Projects & Engagements</h2>
+            </div>
+
+            <button onclick="openNewEngagementModal()" class="btn-primary text-xs">
+              <i data-lucide="plus" class="w-3.5 h-3.5 mr-1.5"></i>
+              <span>Commission New Project</span>
+            </button>
+          </div>
+
+          <!-- 5-STAGE PIPELINE FLOW -->
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-2">
+            <div class="glass-strong p-4 rounded-xl border border-white/[0.08] space-y-1.5 hover:border-white/20 transition-all">
+              <div class="flex items-center justify-between text-[11px] font-mono">
+                <span class="text-slate-400 font-medium">STAGE 01</span>
+                <span class="w-6 h-6 rounded-lg bg-white/[0.06] flex items-center justify-center text-slate-300"><i data-lucide="compass" class="w-3.5 h-3.5"></i></span>
+              </div>
+              <h4 class="text-xs font-bold text-white">Discovery & Pitch</h4>
+              <p class="text-[11px] text-slate-400 leading-snug">Tool alignment, seed boards & proposal</p>
+            </div>
+
+            <div class="glass-strong p-4 rounded-xl border border-white/[0.08] space-y-1.5 hover:border-white/20 transition-all">
+              <div class="flex items-center justify-between text-[11px] font-mono">
+                <span class="text-slate-400 font-medium">STAGE 02</span>
+                <span class="w-6 h-6 rounded-lg bg-white/[0.06] flex items-center justify-center text-slate-300"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i></span>
+              </div>
+              <h4 class="text-xs font-bold text-white">Escrow & Agreement</h4>
+              <p class="text-[11px] text-slate-400 leading-snug">Milestone escrow lock & licensing terms</p>
+            </div>
+
+            <div class="glass-strong p-4 rounded-xl border border-white/[0.08] space-y-1.5 hover:border-white/20 transition-all">
+              <div class="flex items-center justify-between text-[11px] font-mono">
+                <span class="text-slate-400 font-medium">STAGE 03</span>
+                <span class="w-6 h-6 rounded-lg bg-white/[0.06] flex items-center justify-center text-slate-300"><i data-lucide="repeat" class="w-3.5 h-3.5"></i></span>
+              </div>
+              <h4 class="text-xs font-bold text-white">Drafts & Revisions</h4>
+              <p class="text-[11px] text-slate-400 leading-snug">Generation passes, CFG & timecode notes</p>
+            </div>
+
+            <div class="glass-strong p-4 rounded-xl border border-white/[0.08] space-y-1.5 hover:border-white/20 transition-all">
+              <div class="flex items-center justify-between text-[11px] font-mono">
+                <span class="text-slate-400 font-medium">STAGE 04</span>
+                <span class="w-6 h-6 rounded-lg bg-white/[0.06] flex items-center justify-center text-slate-300"><i data-lucide="package-check" class="w-3.5 h-3.5"></i></span>
+              </div>
+              <h4 class="text-xs font-bold text-white">Deliverables Audit</h4>
+              <p class="text-[11px] text-slate-400 leading-snug">4K master, ComfyUI graph & seed audit</p>
+            </div>
+
+            <div class="glass-strong p-4 rounded-xl border border-white/[0.08] space-y-1.5 col-span-2 sm:col-span-1 hover:border-white/20 transition-all">
+              <div class="flex items-center justify-between text-[11px] font-mono">
+                <span class="text-slate-400 font-medium">STAGE 05</span>
+                <span class="w-6 h-6 rounded-lg bg-white/[0.06] flex items-center justify-center text-slate-300"><i data-lucide="award" class="w-3.5 h-3.5"></i></span>
+              </div>
+              <h4 class="text-xs font-bold text-white">Rights & Payout</h4>
+              <p class="text-[11px] text-slate-400 leading-snug">SHA-256 IP certificate & escrow release</p>
+            </div>
+          </div>
+
+          <!-- STAGE FILTER PILLS -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-white/[0.08] text-xs">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-slate-400 font-mono text-[11px]">Filter Stage:</span>
+              <button onclick="filterEngagements('')" class="eng-filter-btn px-3 py-1 rounded-full bg-white text-[#090A0F] font-semibold text-xs transition-all" data-status="">All Stages</button>
+              <button onclick="filterEngagements('Discovery & Pitch')" class="eng-filter-btn px-3 py-1 rounded-full bg-white/[0.04] text-slate-400 hover:text-white border border-white/10 transition-all" data-status="Discovery & Pitch">Stage 1: Pitching</button>
+              <button onclick="filterEngagements('In Generation & Review')" class="eng-filter-btn px-3 py-1 rounded-full bg-white/[0.04] text-slate-400 hover:text-white border border-white/10 transition-all" data-status="In Generation & Review">Stage 2-3: Production</button>
+              <button onclick="filterEngagements('Deliverables Submitted')" class="eng-filter-btn px-3 py-1 rounded-full bg-white/[0.04] text-slate-400 hover:text-white border border-white/10 transition-all" data-status="Deliverables Submitted">Stage 4: Review</button>
+              <button onclick="filterEngagements('Delivered & Verified')" class="eng-filter-btn px-3 py-1 rounded-full bg-white/[0.04] text-slate-400 hover:text-white border border-white/10 transition-all" data-status="Delivered & Verified">Stage 5: Certified</button>
+            </div>
+
+            <div class="text-[11px] font-mono text-slate-400">
+              Active Engagements: <strong id="stat-active-eng" class="text-white">0</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- ENGAGEMENTS FEED -->
+        <div id="engagements-container" class="space-y-6"></div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB 2: DISCOVER AI CREATORS & AI PORTFOLIOS                    -->
+      <!-- ============================================================== -->
+      <section id="tab-creators" class="space-y-6 hidden">
+        
+        <!-- SEARCH & MULTI-FACETED CONSOLE -->
+        <div class="studio-card p-6 sm:p-7 space-y-4">
+          <div class="flex flex-col md:flex-row items-center gap-3">
+            <div class="relative flex-1 w-full">
+              <i data-lucide="search" class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+              <input type="text" id="filter-search" oninput="debounceFetchCreators()" placeholder="Search creators by model (Flux, Runway, ComfyUI, Kling), skills, style, or name..." class="w-full pl-11 pr-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-all font-sans">
+            </div>
+
+            <div class="flex items-center gap-2 w-full md:w-auto">
+              <select id="filter-tool" onchange="fetchCreators()" class="px-3.5 py-2.5 rounded-xl bg-[#10131C] border border-white/10 text-xs text-slate-300 focus:outline-none focus:border-indigo-500 font-sans">
+                <option value="">All Generative Models</option>
+                <option value="Runway">Runway Gen-3 Alpha</option>
+                <option value="Flux">Flux.1 Pro / Dev</option>
+                <option value="ComfyUI">ComfyUI Node Graphs</option>
+                <option value="Kling">Kling 1.5</option>
+                <option value="ElevenLabs">ElevenLabs Voice AI</option>
+                <option value="Topaz">Topaz Video AI 5</option>
+              </select>
+
+              <select id="filter-content-type" onchange="fetchCreators()" class="px-3.5 py-2.5 rounded-xl bg-[#10131C] border border-white/10 text-xs text-slate-300 focus:outline-none focus:border-indigo-500 font-sans">
+                <option value="">All Aspect Ratios</option>
+                <option value="16:9">Cinematic (16:9)</option>
+                <option value="9:16">Short-form Social (9:16)</option>
+                <option value="4:5">Editorial Still (4:5)</option>
+              </select>
+
+              <select id="filter-sort" onchange="fetchCreators()" class="px-3.5 py-2.5 rounded-xl bg-[#10131C] border border-white/10 text-xs text-slate-300 focus:outline-none focus:border-indigo-500 font-sans">
+                <option value="rating_desc">Highest Rated</option>
+                <option value="rate_asc">Rate: Low to High</option>
+                <option value="rate_desc">Rate: High to Low</option>
+                <option value="completed_desc">Most Deliveries</option>
+                <option value="turnaround_asc">Fastest Turnaround</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- VERIFICATION FILTER & QUICK ACTIONS -->
+          <div class="flex flex-wrap items-center justify-between gap-3 text-xs pt-3 border-t border-white/[0.08]">
+            <div class="flex items-center gap-3">
+              <button id="btn-toggle-verified" onclick="toggleVerifiedFilter()" class="flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-slate-400 hover:text-white transition-all font-mono text-[11px]">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Verified Toolstack Only</span>
+              </button>
+              <span id="creators-count-text" class="text-slate-400 font-mono text-[11px]">Loading creators...</span>
+            </div>
+
+            <div class="flex items-center gap-2 text-[11px] font-mono text-slate-400">
+              <span>Studio Hardware Standard: <strong class="text-slate-200">Dual RTX 4090 / ACES Color</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CREATORS GRID -->
+        <div id="creators-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+        <!-- EMPTY STATE -->
+        <div id="creators-empty-state" class="hidden studio-card p-12 text-center space-y-4">
+          <div class="w-12 h-12 rounded-xl bg-white/[0.05] border border-white/10 text-slate-400 flex items-center justify-center mx-auto">
+            <i data-lucide="search-x" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h4 class="font-heading font-bold text-white text-base">No Creators Match Selected Filters</h4>
+            <p class="text-xs text-slate-400 mt-1 max-w-md mx-auto">Try clearing tool or aspect ratio filters to view more creators.</p>
+          </div>
+          <button onclick="resetCreatorFilters()" class="btn-primary px-5 py-2 text-xs">
+            Reset Filters
+          </button>
+        </div>
+
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB 3: BRAND BRIEFS & CREATIVE BRIEFS                          -->
+      <!-- ============================================================== -->
+      <section id="tab-briefs" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="eyebrow-pill text-[10px] px-2.5 py-0.5">CREATIVE BRIEFS</span>
+              <span class="text-slate-600 font-mono">·</span>
+              <span class="text-xs text-slate-400 font-mono">Open for Pitch Submissions</span>
+            </div>
+            <h2 class="text-xl font-heading font-bold text-white mt-1">Commercial Campaign Briefs</h2>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <button onclick="openAiBriefModal()" class="btn-secondary text-xs flex items-center gap-1.5">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>AI Brief Assistant</span>
+            </button>
+            <button onclick="openNewBriefModal()" class="btn-primary text-xs flex items-center gap-1.5">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              <span>Post Creative Brief</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="briefs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </section>
+
+    </main>
+
+    <!-- ============================================================== -->
+    <!-- STUDIO FOOTER                                                  -->
+    <!-- ============================================================== -->
+    <footer class="mt-auto border-t border-white/[0.08] bg-[#090A0F]/90 backdrop-blur-xl px-4 lg:px-8 py-6 text-xs text-slate-400 font-mono">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2.5">
+          <span class="flex h-6 w-6 items-center justify-center rounded-lg bg-white text-[#090A0F] font-bold text-[10px]">
+            D2D
+          </span>
+          <span class="text-white font-heading font-bold">DiscoveryToDelivery</span>
+          <span class="text-slate-600">·</span>
+          <span>Commercial Production Platform for Generative AI Creators</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-slate-500 font-mono">Port 5050 Active</span>
+          <span class="text-slate-600">·</span>
+          <span>SHA-256 Provenance & ComfyUI Reproducibility</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODALS                                                         -->
+  <!-- ============================================================== -->
+
+  <!-- 1. CREATOR PROFILE & WORKFLOW INSPECTION MODAL -->
+  <div id="modal-creator-profile" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="studio-card max-w-4xl w-full p-6 sm:p-8 space-y-6 animate-modal-luxury max-h-[90vh] overflow-y-auto relative my-8 border-white/15">
+      <button onclick="closeModal('modal-creator-profile')" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] transition-all">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div id="creator-modal-body" class="space-y-6"></div>
+    </div>
+  </div>
+
+  <!-- 2. AI BRIEF BUILDER MODAL -->
+  <div id="modal-ai-brief" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="studio-card max-w-2xl w-full p-6 sm:p-8 space-y-5 animate-modal-luxury max-h-[90vh] overflow-y-auto relative my-8 border-white/15">
+      <button onclick="closeModal('modal-ai-brief')" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] transition-all">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="space-y-1.5">
+        <div class="flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-5 h-5 text-indigo-400"></i>
+          <h3 class="text-xl font-heading font-bold text-white">AI Creative Brief Assistant</h3>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed">Turn a rough concept into a structured commercial brief with suggested models, styleframe prompts, aspect ratios, and milestone distribution.</p>
+      </div>
+
+      <div class="space-y-3.5 font-sans text-xs pt-2">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Brand or Client Name</label>
+          <input type="text" id="ai-brief-brand" placeholder="e.g. Apex Nitro, Lumina Audio" value="Apex Nitro" class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Campaign Concept</label>
+          <textarea id="ai-brief-idea" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans">Cinematic vertical teaser of a holographic hypercar drifting on wet neon streets in Tokyo at night with volumetric cyan rain caustics.</textarea>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Target Budget ($ USD)</label>
+            <input type="number" id="ai-brief-budget" value="4500" class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-mono">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Groq API Key (Optional)</label>
+            <input type="password" id="ai-brief-groq-key" placeholder="Optional: gsk_..." class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-mono">
+          </div>
+        </div>
+
+        <button onclick="generateBriefWithAi()" id="btn-ai-generate" class="btn-primary w-full py-3 text-xs font-bold font-heading flex items-center justify-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          <span>Generate Structured Brief</span>
+        </button>
+
+        <div id="ai-brief-result" class="hidden pt-3"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. INITIATE ENGAGEMENT MODAL -->
+  <div id="modal-new-engagement" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="studio-card max-w-xl w-full p-6 sm:p-8 space-y-4 animate-modal-luxury max-h-[90vh] overflow-y-auto relative my-8 border-white/15">
+      <button onclick="closeModal('modal-new-engagement')" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] transition-all">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="space-y-1">
+        <h3 class="text-xl font-heading font-bold text-white flex items-center gap-2">
+          <i data-lucide="briefcase" class="w-5 h-5 text-indigo-400"></i> Commission Project
+        </h3>
+        <p class="text-xs text-slate-300">Set up a milestone-funded engagement with commercial licensing terms.</p>
+      </div>
+
+      <form id="form-new-engagement" onsubmit="submitNewEngagement(event)" class="space-y-3 text-xs pt-2">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Select AI Creator</label>
+          <select id="eng-creator-select" class="w-full px-4 py-2.5 rounded-xl bg-[#10131C] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans"></select>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Campaign Project Title</label>
+          <input type="text" id="eng-title" value="Aura Glow: Cinematic Macro Product Film" required class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Brand Name</label>
+            <input type="text" id="eng-brand" value="Lumina Cosmetics" required class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Agreed Budget ($ USD)</label>
+            <input type="number" id="eng-budget" value="4200" required class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-mono">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Commercial Licensing</label>
+            <select id="eng-license" class="w-full px-4 py-2.5 rounded-xl bg-[#10131C] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans">
+              <option value="Worldwide Digital Advertising (Perpetual)">Worldwide Digital Advertising (Perpetual)</option>
+              <option value="Full Commercial Buyout & Global IP Ownership">Full Commercial Buyout & Global IP Ownership</option>
+              <option value="Broadcast & Streaming Commercial License">Broadcast & Streaming Commercial License</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Target Turnaround (Days)</label>
+            <input type="number" id="eng-turnaround" value="4" class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-mono">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Pitch & Proposal Specifications</label>
+          <textarea id="eng-pitch" rows="2" class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans">Utilizing custom Flux.1 Pro + Runway Gen-3 Alpha pipeline with prompt provenance, seed locking, and 4K upscaling.</textarea>
+        </div>
+
+        <button type="submit" class="btn-primary w-full py-3 text-xs font-bold font-heading">
+          Create Engagement & Initialize Pipeline
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. REVISION DRAFT SUBMISSION MODAL -->
+  <div id="modal-add-iteration" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="studio-card max-w-lg w-full p-6 sm:p-8 space-y-4 animate-modal-luxury max-h-[90vh] overflow-y-auto relative my-8 border-white/15">
+      <button onclick="closeModal('modal-add-iteration')" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] transition-all">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="space-y-1">
+        <h3 class="text-xl font-heading font-bold text-white flex items-center gap-2">
+          <i data-lucide="repeat" class="w-5 h-5 text-indigo-400"></i> Submit Revision Draft
+        </h3>
+        <p class="text-xs text-slate-300">Submit an intermediate generation pass with parameter adjustments, seed logs, and feedback.</p>
+      </div>
+
+      <form id="form-add-iteration" onsubmit="submitIteration(event)" class="space-y-3 text-xs pt-2">
+        <input type="hidden" id="iter-eng-id">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Draft Preview Media URL</label>
+          <input type="text" id="iter-media" value="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" required class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-mono">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Generation Notes (Model, CFG, Seed)</label>
+          <textarea id="iter-notes" rows="2" required class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans">Flux.1 Pro camera fly-through with adjusted CFG to 6.2 and locked seed 849201948.</textarea>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Prompt Refinement</label>
+          <input type="text" id="iter-prompt" value="Added volumetric lighting, cinematic bokeh and medium format lens depth of field f/2.0" class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-mono text-[11px]">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Brand Timecode Feedback</label>
+          <input type="text" id="iter-feedback" value="Visual continuity approved! Ready to progress to full 4K render pass." class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans">
+        </div>
+
+        <button type="submit" class="btn-primary w-full py-3 text-xs font-bold font-heading">
+          Record Revision Draft
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. FINAL DELIVERABLES SUBMISSION MODAL -->
+  <div id="modal-deliver" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="studio-card max-w-lg w-full p-6 sm:p-8 space-y-4 animate-modal-luxury max-h-[90vh] overflow-y-auto relative my-8 border-white/15">
+      <button onclick="closeModal('modal-deliver')" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] transition-all">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="space-y-1">
+        <h3 class="text-xl font-heading font-bold text-white flex items-center gap-2">
+          <i data-lucide="package-check" class="w-5 h-5 text-indigo-400"></i> Submit Final Deliverables Package
+        </h3>
+        <p class="text-xs text-slate-300">Deliver 4K master ProRes, reproducible ComfyUI node graph JSON, and seed audit report.</p>
+      </div>
+
+      <form id="form-submit-deliver" onsubmit="submitFinalDelivery(event)" class="space-y-3 text-xs pt-2">
+        <input type="hidden" id="deliver-eng-id">
+        
+        <div class="glass-strong p-4 rounded-xl border border-white/10 space-y-2">
+          <span class="text-[11px] font-mono text-slate-300 font-bold uppercase block">Verified Deliverables Package:</span>
+          <div class="space-y-1.5 text-slate-300 font-mono text-[11px]">
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-2"><i data-lucide="file-video" class="w-3.5 h-3.5 text-indigo-400"></i> Final_Master_4K_ProRes.mp4</span>
+              <span class="text-slate-400">1.24 GB</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-2"><i data-lucide="file-code" class="w-3.5 h-3.5 text-emerald-400"></i> production_comfyui_workflow.json</span>
+              <span class="text-slate-400">1.42 MB</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-2"><i data-lucide="file-text" class="w-3.5 h-3.5 text-amber-400"></i> generation_seeds_report.pdf</span>
+              <span class="text-slate-400">380 KB</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Model Provenance & Commercial Warranty</label>
+          <textarea id="deliver-provenance" rows="2" class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans">Created with commercially licensed model weights (Flux.1 Pro, Runway Gen-3 Alpha). Full commercial rights assigned with copyright indemnity.</textarea>
+        </div>
+
+        <button type="submit" class="btn-primary w-full py-3 text-xs font-bold font-heading">
+          Submit Package for Client Approval
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 6. COMMERCIAL RIGHTS CERTIFICATE MODAL -->
+  <div id="modal-certificate" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="studio-card max-w-2xl w-full p-8 sm:p-10 space-y-6 animate-modal-luxury max-h-[92vh] overflow-y-auto relative my-8 border-white/20 shadow-2xl">
+      <button onclick="closeModal('modal-certificate')" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] transition-all">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div id="certificate-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- 7. NEW BRIEF MODAL -->
+  <div id="modal-new-brief" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="studio-card max-w-xl w-full p-6 sm:p-8 space-y-4 animate-modal-luxury max-h-[90vh] overflow-y-auto relative my-8 border-white/15">
+      <button onclick="closeModal('modal-new-brief')" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] transition-all">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="space-y-1">
+        <h3 class="text-xl font-heading font-bold text-white flex items-center gap-2">
+          <i data-lucide="file-plus" class="w-5 h-5 text-indigo-400"></i> Post Creative Campaign Brief
+        </h3>
+        <p class="text-xs text-slate-300">Publish your project requirements to discover and receive pitches from vetted AI creators.</p>
+      </div>
+
+      <form id="form-create-brief" onsubmit="submitNewBrief(event)" class="space-y-3 text-xs pt-2">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Campaign Title</label>
+          <input type="text" id="nb-title" placeholder="e.g. Neo-Tokyo Hypercar Night Teaser" required class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Brand Client</label>
+            <input type="text" id="nb-brand" placeholder="e.g. Apex Nitro" required class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Budget ($ USD)</label>
+            <input type="number" id="nb-budget" value="4500" required class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-mono">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Content Type</label>
+            <select id="nb-content-type" class="w-full px-4 py-2.5 rounded-xl bg-[#10131C] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans">
+              <option value="Short-form Social (9:16)">Short-form Social (9:16)</option>
+              <option value="Cinematic Video (16:9)">Cinematic Video (16:9)</option>
+              <option value="Editorial Still (4:5)">Editorial Still (4:5)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Aspect Ratio</label>
+            <input type="text" id="nb-aspect" value="9:16 Vertical (1080x1920)" class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-mono">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Style & Visual Narrative</label>
+          <input type="text" id="nb-style" value="Cinematic Photorealism & Volumetric Lighting" class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Campaign Overview & Objectives</label>
+          <textarea id="nb-overview" rows="3" required placeholder="Describe the creative vision, target audience, deliverables, and tone..." class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Commercial Licensing</label>
+          <select id="nb-license" class="w-full px-4 py-2.5 rounded-xl bg-[#10131C] border border-white/10 text-white focus:outline-none focus:border-indigo-500 font-sans">
+            <option value="Worldwide Digital Advertising (Perpetual)">Worldwide Digital Advertising (Perpetual)</option>
+            <option value="Full Commercial Buyout & Global IP Ownership">Full Commercial Buyout & Global IP Ownership</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary w-full py-3 text-xs font-bold font-heading">
+          Publish Brief to Marketplace
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2.5 pointer-events-none"></div>
+
+  <!-- Application Logic -->
+  <script src="/static/app.js"></script>
+</body>
+</html>
