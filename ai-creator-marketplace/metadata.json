@@ -1,0 +1,6 @@
+{
+  "name": "Kroma AI Creator Marketplace",
+  "description": "Premium marketplace for discovering generative AI artists, specialized AI creator profiles, and verifiable model workflows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
