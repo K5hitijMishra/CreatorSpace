@@ -65,16 +65,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
           />
         ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-zinc-900 to-zinc-950">
+          <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-linear-to-br from-zinc-900 to-zinc-950">
             <Sparkles className="w-8 h-8 text-violet-400/60 mb-2" />
             <p className="text-xs font-medium text-zinc-400">{project.title}</p>
           </div>
         )}
 
         {/* Measured bottom scrim overlay for hover details */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-4">
+        <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-4">
           <div className="flex items-center justify-between text-xs text-zinc-200">
-            <span className="truncate max-w-[200px] text-zinc-300">
+            <span className="truncate max-w-50 text-zinc-300">
               {project.toolsUsed.slice(0, 2).join(' · ')}
             </span>
             <span className="flex items-center gap-1 font-semibold text-white">
@@ -127,7 +127,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               </span>
             </Link>
           ) : (
-            <span className="text-xs text-zinc-500">Kroma Creator</span>
+            <span className="text-xs text-zinc-500">CreatorSpace Creator</span>
           )}
 
           {/* Like & View stats */}

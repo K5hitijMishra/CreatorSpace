@@ -24,22 +24,22 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const DEMO_ACCOUNTS: Record<string, { email: string; pass: string }> = {
-  elena_synth: { email: 'elena@kroma.ai', pass: 'Creator123!' },
-  marcus_visuals: { email: 'marcus@kroma.ai', pass: 'Creator123!' },
-  aria_couture: { email: 'aria@kroma.ai', pass: 'Creator123!' },
-  tate_motion: { email: 'tate@kroma.ai', pass: 'Creator123!' },
+  elena_synth: { email: 'elena@creatorspace.ai', pass: 'Creator123!' },
+  marcus_visuals: { email: 'marcus@creatorspace.ai', pass: 'Creator123!' },
+  aria_couture: { email: 'aria@creatorspace.ai', pass: 'Creator123!' },
+  tate_motion: { email: 'tate@creatorspace.ai', pass: 'Creator123!' },
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [creator, setCreator] = useState<CreatorProfile | null>(null);
-  const [token, setToken] = useState<string | null>(() => localStorage.getItem('kroma_jwt_token'));
+  const [token, setToken] = useState<string | null>(() => localStorage.getItem('creatorspace_jwt_token') || localStorage.getItem('kroma_jwt_token'));
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Initialize auth state
   useEffect(() => {
     const initAuth = async () => {
-      const storedToken = localStorage.getItem('kroma_jwt_token');
+      const storedToken = localStorage.getItem('creatorspace_jwt_token') || localStorage.getItem('kroma_jwt_token');
       if (!storedToken) {
         setIsLoading(false);
         return;
@@ -51,6 +51,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setCreator(res.creator || null);
       } catch (err) {
         console.warn('Session expired or invalid token:', err);
+        localStorage.removeItem('creatorspace_jwt_token');
         localStorage.removeItem('kroma_jwt_token');
         setToken(null);
         setUser(null);
@@ -67,7 +68,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(true);
     try {
       const res = await api.login({ email, password });
-      localStorage.setItem('kroma_jwt_token', res.token);
+      localStorage.setItem('creatorspace_jwt_token', res.token);
       setToken(res.token);
       setUser(res.user);
       setCreator(res.creator || null);
@@ -86,7 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(true);
     try {
       const res = await api.register(data);
-      localStorage.setItem('kroma_jwt_token', res.token);
+      localStorage.setItem('creatorspace_jwt_token', res.token);
       setToken(res.token);
       setUser(res.user);
       setCreator(res.creator || null);
@@ -96,6 +97,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
+    localStorage.removeItem('creatorspace_jwt_token');
     localStorage.removeItem('kroma_jwt_token');
     setToken(null);
     setUser(null);

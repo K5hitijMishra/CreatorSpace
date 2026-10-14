@@ -15,10 +15,10 @@ PORT=3000
 NODE_ENV=development
 
 # MongoDB Atlas URI (Mongoose)
-MONGODB_URI="mongodb+srv://<username>:<password>@cluster0.mongodb.net/kroma?retryWrites=true&w=majority"
+MONGODB_URI="mongodb+srv://<username>:<password>@cluster0.mongodb.net/creatorspace?retryWrites=true&w=majority"
 
 # JWT Auth Secret
-JWT_SECRET="kroma_super_secure_jwt_secret_key_2026_hackathon"
+JWT_SECRET="creatorspace_super_secure_jwt_secret_key_2026_hackathon"
 JWT_EXPIRES_IN="7d"
 
 # Cloudinary Integration (Stored securely on backend)
@@ -135,7 +135,7 @@ npm run dev
             Cloudinary stream uploader integrated via Multer memory storage:
           </p>
           <ul className="text-xs text-zinc-300 space-y-2 list-disc list-inside">
-            <li>Buffers files in memory and streams directly to Cloudinary folder <code className="text-zinc-200">kroma_portfolios</code>.</li>
+            <li>Buffers files in memory and streams directly to Cloudinary folder <code className="text-zinc-200">creatorspace_portfolios</code>.</li>
             <li>Credentials configured through backend environment variables (<code className="text-zinc-200">CLOUDINARY_API_KEY</code>, <code className="text-zinc-200">CLOUDINARY_API_SECRET</code>).</li>
             <li>Graceful fallback allows local media selection and external CDN images without disruption.</li>
           </ul>

@@ -26,9 +26,9 @@ export const Navbar: React.FC = () => {
           className="text-xl font-bold tracking-tight text-white font-['Outfit'] flex items-center gap-2 whitespace-nowrap shrink-0 group"
         >
           <span className="w-7 h-7 rounded-lg bg-violet-600 flex items-center justify-center text-white font-black text-sm shadow-sm group-hover:bg-violet-500 transition-colors">
-            K
+            C
           </span>
-          <span>KROMA</span>
+          <span>CreatorSpace</span>
         </Link>
 
         {/* Zone 2: Concise single-line navigation links */}

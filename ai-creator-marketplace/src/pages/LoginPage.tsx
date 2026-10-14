@@ -51,9 +51,9 @@ export const LoginPage: React.FC = () => {
       {/* Brand & Title */}
       <div className="text-center space-y-2">
         <div className="w-10 h-10 rounded-xl bg-violet-600 flex items-center justify-center text-white font-bold text-lg mx-auto shadow-md shadow-violet-900/30">
-          K
+          C
         </div>
-        <h1 className="text-2xl font-bold text-white font-['Outfit']">Sign In to Kroma</h1>
+        <h1 className="text-2xl font-bold text-white font-['Outfit']">Sign In to CreatorSpace</h1>
         <p className="text-xs text-zinc-400">
           Access your studio profile and publish verified neural workflows.
         </p>
@@ -105,7 +105,7 @@ export const LoginPage: React.FC = () => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="elena@kroma.ai"
+              placeholder="elena@creatorspace.ai"
               className="w-full bg-[#14141e] border border-zinc-800 rounded-lg pl-9 pr-3 py-2 text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500"
             />
           </div>

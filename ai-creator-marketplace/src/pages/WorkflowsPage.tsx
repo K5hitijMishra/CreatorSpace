@@ -32,7 +32,7 @@ export const WorkflowsPage: React.FC = () => {
           Step-by-Step Generative Pipelines
         </h1>
         <p className="text-sm text-zinc-400 max-w-2xl leading-relaxed">
-          Kroma demands complete transparency: every featured project includes verifiable procedural generation steps, tool provenance, and model parameters.
+          CreatorSpace demands complete transparency: every featured project includes verifiable procedural generation steps, tool provenance, and model parameters.
         </p>
       </div>
 

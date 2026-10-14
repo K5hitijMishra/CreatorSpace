@@ -3,7 +3,7 @@ import { CreatorProfile, PortfolioProject, User, FilterMeta } from '../types';
 const API_BASE = '/api';
 
 function getAuthHeader(): Record<string, string> {
-  const token = localStorage.getItem('kroma_jwt_token');
+  const token = localStorage.getItem('creatorspace_jwt_token') || localStorage.getItem('kroma_jwt_token');
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
@@ -210,7 +210,7 @@ export const api = {
     const formData = new FormData();
     formData.append('media', file);
 
-    const token = localStorage.getItem('kroma_jwt_token');
+    const token = localStorage.getItem('creatorspace_jwt_token') || localStorage.getItem('kroma_jwt_token');
     const headers: Record<string, string> = {};
     if (token) headers.Authorization = `Bearer ${token}`;
 

@@ -11,10 +11,10 @@ export const Footer: React.FC = () => {
           <div className="md:col-span-1 space-y-3">
             <div className="flex items-center gap-2">
               <span className="w-6 h-6 rounded-md bg-violet-600 flex items-center justify-center text-white font-bold text-xs">
-                K
+                C
               </span>
               <span className="font-bold tracking-tight text-white font-['Outfit'] text-base">
-                KROMA
+                CreatorSpace
               </span>
             </div>
             <p className="text-zinc-500 leading-relaxed text-xs max-w-sm">
@@ -91,7 +91,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="pt-8 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-zinc-600">
-          <p>© {new Date().getFullYear()} Kroma AI Creator Marketplace. Built for Hackathon Module Evaluation.</p>
+          <p>© {new Date().getFullYear()} CreatorSpace AI Creator Marketplace. Built for Hackathon Module Evaluation.</p>
           <div className="flex items-center gap-4">
             <span className="text-zinc-500">Commercial License Verified</span>
             <span aria-hidden="true">·</span>

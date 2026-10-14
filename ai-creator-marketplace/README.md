@@ -1,6 +1,6 @@
-# Kroma — AI Creator Marketplace Module
+# CreatorSpace — AI Creator Marketplace Module
 
-Kroma is a full-stack AI Creator Marketplace module built for hackathon evaluation, focusing on **Creator Profiles** and **AI Portfolios** with verifiable neural pipelines and commercial licensing disclosures.
+CreatorSpace is a full-stack AI Creator Marketplace module built for hackathon evaluation, focusing on **Creator Profiles** and **AI Portfolios** with verifiable neural pipelines and commercial licensing disclosures.
 
 ---
 
@@ -47,10 +47,10 @@ PORT=3000
 NODE_ENV=development
 
 # MongoDB Atlas URI (Optional — in-memory store activates if omitted)
-MONGODB_URI="mongodb+srv://<username>:<password>@cluster0.mongodb.net/kroma?retryWrites=true&w=majority"
+MONGODB_URI="mongodb+srv://<username>:<password>@cluster0.mongodb.net/creatorspace?retryWrites=true&w=majority"
 
 # JWT Auth Secret
-JWT_SECRET="kroma_super_secure_jwt_secret_key_2026_hackathon"
+JWT_SECRET="creatorspace_super_secure_jwt_secret_key_2026_hackathon"
 JWT_EXPIRES_IN="7d"
 
 # Cloudinary Storage (Optional — local previews activate if omitted)
@@ -130,7 +130,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## 🧪 Seed Accounts & Credentials
 
 For fast review, use the one-click buttons on `/login` or sign in with:
-- `elena@kroma.ai` / `Creator123!` (Elena Rostova · Sci-Fi Worldbuilding)
-- `marcus@kroma.ai` / `Creator123!` (Marcus Chen · Architectural Futurism)
-- `aria@kroma.ai` / `Creator123!` (Aria Valen · AI Haute Couture)
-- `tate@kroma.ai` / `Creator123!` (Tate Kincaid · Cinematic Motion)
+- `elena@creatorspace.ai` / `Creator123!` (Elena Rostova · Sci-Fi Worldbuilding)
+- `marcus@creatorspace.ai` / `Creator123!` (Marcus Chen · Architectural Futurism)
+- `aria@creatorspace.ai` / `Creator123!` (Aria Valen · AI Haute Couture)
+- `tate@creatorspace.ai` / `Creator123!` (Tate Kincaid · Cinematic Motion)

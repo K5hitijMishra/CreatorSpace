@@ -8,7 +8,7 @@ export const SEED_USERS: IUser[] = [
   {
     _id: 'usr_elena_01',
     name: 'Elena Rostova',
-    email: 'elena@kroma.ai',
+    email: 'elena@creatorspace.ai',
     password: HASHED_PASSWORD,
     role: 'creator',
     createdAt: '2025-01-15T08:00:00Z',
@@ -16,7 +16,7 @@ export const SEED_USERS: IUser[] = [
   {
     _id: 'usr_marcus_02',
     name: 'Marcus Chen',
-    email: 'marcus@kroma.ai',
+    email: 'marcus@creatorspace.ai',
     password: HASHED_PASSWORD,
     role: 'creator',
     createdAt: '2025-02-01T10:30:00Z',
@@ -24,7 +24,7 @@ export const SEED_USERS: IUser[] = [
   {
     _id: 'usr_aria_03',
     name: 'Aria Valen',
-    email: 'aria@kroma.ai',
+    email: 'aria@creatorspace.ai',
     password: HASHED_PASSWORD,
     role: 'creator',
     createdAt: '2025-02-14T12:00:00Z',
@@ -32,7 +32,7 @@ export const SEED_USERS: IUser[] = [
   {
     _id: 'usr_tate_04',
     name: 'Tate Kincaid',
-    email: 'tate@kroma.ai',
+    email: 'tate@creatorspace.ai',
     password: HASHED_PASSWORD,
     role: 'creator',
     createdAt: '2025-03-01T09:15:00Z',

@@ -43,7 +43,7 @@ async function startServer() {
   app.get('/api/health', (_req, res) => {
     res.json({
       status: 'healthy',
-      app: 'Kroma AI Creator Marketplace',
+      app: 'CreatorSpace AI Creator Marketplace',
       timestamp: new Date().toISOString(),
       database: process.env.MONGODB_URI ? 'MongoDB Atlas' : 'In-Memory Fast Store',
       mediaProvider: process.env.CLOUDINARY_CLOUD_NAME ? 'Cloudinary' : 'Local/DataURI',
@@ -69,7 +69,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🚀 Kroma Marketplace Server running at http://0.0.0.0:${PORT}`);
+    console.log(`🚀 CreatorSpace Marketplace Server running at http://0.0.0.0:${PORT}`);
   });
 }
 

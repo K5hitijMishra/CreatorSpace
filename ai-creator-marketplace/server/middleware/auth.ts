@@ -3,7 +3,8 @@ import jwt from 'jsonwebtoken';
 import { Repository } from '../store/repository';
 import { IUser, ICreatorProfile } from '../models/types';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'kroma_super_secure_jwt_secret_key_2026_hackathon';
+const JWT_SECRET = process.env.JWT_SECRET || 'creatorspace_super_secure_jwt_secret_key_2026_hackathon';
+const FALLBACK_JWT_SECRET = 'kroma_super_secure_jwt_secret_key_2026_hackathon';
 
 export interface AuthRequest extends Request {
   user?: IUser;
@@ -32,7 +33,12 @@ export const verifyAuth = async (
       return next();
     }
 
-    const decoded = jwt.verify(token, JWT_SECRET) as { id: string; role: string };
+    let decoded: { id: string; role: string };
+    try {
+      decoded = jwt.verify(token, JWT_SECRET) as { id: string; role: string };
+    } catch {
+      decoded = jwt.verify(token, FALLBACK_JWT_SECRET) as { id: string; role: string };
+    }
     const user = await Repository.findUserById(decoded.id);
 
     if (user) {

@@ -21,7 +21,7 @@ if (isCloudinaryConfigured) {
 export const uploadMediaToCloudinary = async (
   fileBuffer: Buffer,
   filename: string,
-  folder = 'kroma_portfolios'
+  folder = 'creatorspace_portfolios'
 ): Promise<{ url: string; publicId?: string; format?: string }> => {
   if (!isCloudinaryConfigured) {
     // Fallback: Convert to Data URI so media works without external API keys
